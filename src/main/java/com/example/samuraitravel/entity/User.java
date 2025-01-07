@@ -59,8 +59,8 @@ public class User {
     private Timestamp updatedAt;
     
     //リレーション追加
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Review> reviews; // Userに関連するレビューのリスト
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<Review> reviews; // Userに関連するレビューのリスト
     
     /*
     @Override
