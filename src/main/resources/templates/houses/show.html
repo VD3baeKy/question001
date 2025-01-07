@@ -208,7 +208,7 @@
                                     <p sec:authorize="isAnonymous()" class="card-text">レビューを投稿するには<a th:href="@{/login}">ログイン</a>が必要です。</p>
                                     <div class="card-container row justify-content-center align-items-center" th:if="${reviews.size() > 0}">
                                         <div th:each="review, iterStat: ${reviews}" class="card col-lg-5 col-md-6 col-sm-12 m-3 p-3">
-											<div th:if="${iterStat.index < 6}">
+					  <div th:if="${iterStat.index < 6}">
                                             <!-- <span th:text="${review.rating} + ' stars'"></span> -->
                                             <!-- <h5 th:text="${review.user.getName()}" th:if="${review.user.getName() != null}"></h5> -->
                                             <!-- <h5 th:text="${'REVIEW-ID= ' + review.getId()}" th:if="${review.getId() != null}"></h5> -->
