@@ -239,7 +239,8 @@
  												 	<a href="#" class="close">&times;</a>
 													<div class="modal-content">
     													<h5 th:text="'あなたの ［' + ${house.getName()} + '］ についてのレビューを削除してもよろしいですか？'"></h5>
-     													<a th:href="@{/houses/__${house.getId()}__/review/__${currentUserId}__/delete}" class="samuraitravel-link-danger">削除</a>
+     													<!-- <a th:href="@{/houses/__${house.getId()}__/review/__${currentUserId}__/delete}" class="samuraitravel-link-danger">削除</a> -->
+													<a th:href="@{/houses/__${house.getId()}__/review/__${review.getId()}__/delete}" class="samuraitravel-link-danger">削除</a>
 													</div>
   												</div>
 											</div>
@@ -247,7 +248,8 @@
 												<div class="modal-wrapper">
  												 	<a href="#" class="close">&times;</a>
 													<div class="modal-content">
-    													<form action="@{/houses/__${house.getId()}__/review/__${currentUserId}_/edit}" method="post" th:object="${reviewEditForm}">
+    													<!-- <form action="@{/houses/__${house.getId()}__/review/__${currentUserId}_/edit}" method="post" th:object="${reviewEditForm}"> -->
+													<form action="@{/houses/__${house.getId()}__/review/__${review.getId()}_/edit}" method="post" th:object="${reviewEditForm}">
                                                     		<div>
                                                         		<h5 th:text="'あなたの ［' + ${house.getName()} + '］のレビュー修正'"></h5>
                                                     		</div>
