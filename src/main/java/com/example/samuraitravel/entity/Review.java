@@ -24,7 +24,7 @@ public class Review {
     @Column(name = "id")
     private Integer id;
 
-    //@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
