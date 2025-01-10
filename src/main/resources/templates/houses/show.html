@@ -63,6 +63,27 @@
 </div>
 <!-- Button trigger modal ココマデ -->
 				 
+<script>
+function alertFunction1() {
+alert("アラートダイアログを表示します。");
+}
+</script>
+<h1>javascript のalertメソッド</h1>
+<p><button onclick="alertFunction1()">ボタンを押して下さい</button></p>
+
+<p><button type="button" onclick="document.getElementById('ex-dialog-5').showModal()">名前を入力する</button></p>
+<p id="ex-dialog-5-output"></p>
+<dialog id="ex-dialog-5" aria-labelledby="ex-dialog-5-title"
+    onclose="document.getElementById('ex-dialog-5-output').textContent = `「${this.returnValue}」ボタンが実行されました。`;">
+  <form method="dialog">
+    <h3 id="ex-dialog-5-title">名前を入力</h3>
+    <p><label>名前: <input type="text" required></label></p>
+    <p>
+      <button type="submit" value="cancel" formnovalidate>キャンセル</button>
+      <button type="submit" value="enter">確定する</button>
+    </p>
+  </form>
+</dialog>
 				 
                              <div th:if="${successMessage}" class="alert alert-info">
                                  <span th:text="${successMessage}"></span>
