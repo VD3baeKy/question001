@@ -87,3 +87,12 @@ INSERT INTO reservations (id, house_id, user_id, checkin_date, checkout_date, nu
 INSERT INTO reservations (id, house_id, user_id, checkin_date, checkout_date, number_of_people, amount) VALUES (9, 9, 1, '2023-04-01', '2023-04-02', 5, 9000)ON CONFLICT (id) DO NOTHING;
 INSERT INTO reservations (id, house_id, user_id, checkin_date, checkout_date, number_of_people, amount) VALUES (10, 10, 1, '2023-04-01', '2023-04-02', 6, 10000)ON CONFLICT (id) DO NOTHING;
 INSERT INTO reservations (id, house_id, user_id, checkin_date, checkout_date, number_of_people, amount) VALUES (11, 11, 1, '2023-04-01', '2023-04-02', 2, 6000)ON CONFLICT (id) DO NOTHING;
+
+-- reviewsテーブル
+INSERT INTO `reviews` (`id`, `house_id`, `user_id`, `rating`, `review_text`, `image_name`, `created_at`, `updated_at`) VALUES (2, 40, 1, 5, 'tesuto.', NULL, '2025-01-03 04:16:46', '2025-01-04 06:11:46') ON CONFLICT (id) DO NOTHING;
+INSERT INTO `reviews` (3, 40, 14, 3, 'テストTESTてーすと', NULL, '2025-01-04 03:54:17', '2025-01-04 06:11:40')ON CONFLICT (id) DO NOTHING;
+INSERT INTO `reviews` (4, 40, 12, 3, 'テすと', NULL, '2025-01-04 03:54:17', '2025-01-04 03:54:52')ON CONFLICT (id) DO NOTHING;
+INSERT INTO `reviews` (5, 40, 2, 2, 'tesutooooo.', NULL, '2025-01-04 01:16:46', '2025-01-03 05:06:58')ON CONFLICT (id) DO NOTHING;
+INSERT INTO `reviews` (6, 40, 3, 3, 'てーすとテストTEST', NULL, '2025-01-04 02:54:17', '2025-01-04 03:54:52')ON CONFLICT (id) DO NOTHING;
+INSERT INTO `reviews` (7, 40, 5, 1, 'テすとテすとテすとテすと', NULL, '2025-01-04 03:04:17', '2025-01-04 03:54:52')ON CONFLICT (id) DO NOTHING;
+INSERT INTO `reviews` (8, 40, 7, 5, 'this is test.', NULL, '2025-01-03 04:16:46', '2025-01-03 05:06:58')ON CONFLICT (id) DO NOTHING;
