@@ -197,8 +197,8 @@
 				</div>
 				
 				<!-- Revueカード追加ココカラ -->
-				<div th:if="${reviews.size()>0}">
-					レビューはありません
+				<div th:if="${reviews.size()==0}">
+					<p>レビューはありません</p>
 				</div>
 				<div th:if="${reviews.size()>0}">
  					<h3 th:text="'［' + ${house.getName()}+ '］のレビュー　全 ' + ${reviews.size()} +' 件'">
