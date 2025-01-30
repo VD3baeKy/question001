@@ -1,19 +1,17 @@
 package com.example.samuraitravel.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "houses")
 @Data
@@ -53,12 +51,4 @@ public class House {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private Timestamp updatedAt;
     
-    //リレーション追加
-    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Review> reviews; // Houseに関連するレビューのリスト
-
-    // GetterとSetter
-    public List<Review> getReviews() {
-        return reviews;
-    }
 }

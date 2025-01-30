@@ -1,9 +1,7 @@
 package com.example.samuraitravel.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,10 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "users")
 @Data
@@ -58,25 +57,10 @@ public class User {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private Timestamp updatedAt;
     
-    //リレーション追加
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Review> reviews; // Userに関連するレビューのリスト
-    
     /*
-    @Override
-    public String toString() {
-        return "User{id=" + id + 
-        		", name='" + name +
-        		", furigana='" + furigana +
-        		", postal_code='" + postalCode +
-        		", address='" + address +
-        		", phone_number='" + phoneNumber +
-        		", email='" + email +
-        		", password='" + password +
-        		", enabled='" + enabled +
-        		", created_at='" + createdAt +
-        		", updated_at='" + updatedAt +
-        		"'}"; // 必要なフィールドのみを表示
-    }*/
-    
+    public User(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    */
 }
