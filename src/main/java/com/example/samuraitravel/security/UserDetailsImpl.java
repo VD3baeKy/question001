@@ -21,7 +21,7 @@ import com.example.samuraitravel.entity.User;
          return user;
      }
      
-     public Integer getUser_Id() {
+     public Integer getUserId() {
          return user.getId();
      }
      
@@ -67,7 +67,4 @@ import com.example.samuraitravel.entity.User;
          return user.getEnabled();
      }
 
-     public Integer getUserId() {
-         return user.getId();
-     }
 }
