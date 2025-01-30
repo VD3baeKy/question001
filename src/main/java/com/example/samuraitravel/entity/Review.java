@@ -10,11 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "reviews")
 @Data
@@ -24,19 +24,17 @@ public class Review {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @Column(name = "user_id")
+    private Integer userId;
 
-    @ManyToOne
-    @JoinColumn(name = "house_id", referencedColumnName = "id")
-    private House house;
+    @Column(name = "house_id")
+    private Integer houseId;
 
     @Column(name = "rating")
     private Integer rating;
 
     @Column(name = "review_text")
-    private String review_text;
+    private String reviewText;
 
     @Column(name = "image_name")
     private String imageName;
@@ -66,14 +64,26 @@ public class Review {
     }
     
     
-    public String getReview_text() {
-        return review_text;
+    public String getReviewText() {
+        return reviewText;
     }
     
     
-    public Integer getUser_id() {
-        return user.getId();
+    public Integer getUserid() {
+        return userId;
     }
+    
+    public Integer getHouseid() {
+        return houseId;
+    }
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public Integer getHouseId() {
+		return houseId;
+	}
     
     /*
     @Override
