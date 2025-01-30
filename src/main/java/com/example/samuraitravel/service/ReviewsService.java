@@ -1,13 +1,10 @@
 package com.example.samuraitravel.service;
  
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+//import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,13 +38,13 @@ import jakarta.persistence.PersistenceContext;
          if (!imageFile.isEmpty()) {
              String imageName = imageFile.getOriginalFilename(); 
              String hashedImageName = generateNewFileName(imageName);
-             Path filePath = Paths.get("src/main/resources/static/review_img/" + hashedImageName);
-             copyImageFile(imageFile, filePath);
+             //Path filePath = Paths.get("src/main/resources/static/review_img/" + hashedImageName);
+             //copyImageFile(imageFile, filePath);
              review.setImageName(hashedImageName);
          }
          
          review.setRating(reviewRegisterForm.getRating());
-         review.setReview_text(reviewRegisterForm.getReview_text());
+         review.setReviewText(reviewRegisterForm.getReviewText());
 
          reviewsRepository.save(review);
      }
@@ -61,13 +58,13 @@ import jakarta.persistence.PersistenceContext;
          if (!imageFile.isEmpty()) {
              String imageName = imageFile.getOriginalFilename(); 
              String hashedImageName = generateNewFileName(imageName);
-             Path filePath = Paths.get("src/main/resources/static/review_img/" + hashedImageName);
-             copyImageFile(imageFile, filePath);
+             //Path filePath = Paths.get("src/main/resources/static/review_img/" + hashedImageName);
+             //copyImageFile(imageFile, filePath);
              review.setImageName(hashedImageName);
          }
          
          review.setRating(reviewEditForm.getRating());
-         review.setReview_text(reviewEditForm.getReview_text());
+         review.setReviewText(reviewEditForm.getReviewText());
 
          reviewsRepository.save(review);
      } 
@@ -83,6 +80,7 @@ import jakarta.persistence.PersistenceContext;
      }
      
      // 画像ファイルを指定したファイルにコピーする
+     /*
      public void copyImageFile(MultipartFile imageFile, Path filePath) {           
          try {
              Files.copy(imageFile.getInputStream(), filePath);
@@ -90,6 +88,7 @@ import jakarta.persistence.PersistenceContext;
              e.printStackTrace();
          }          
      } 
+     */
      
      // キャッシュをクリア
          @PersistenceContext
