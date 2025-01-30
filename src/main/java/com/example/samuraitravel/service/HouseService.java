@@ -1,10 +1,6 @@
 package com.example.samuraitravel.service;
  
- import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
+ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +10,7 @@ import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.form.HouseEditForm;
 import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
-
+ 
  @Service
  public class HouseService {
      private final HouseRepository houseRepository;    
@@ -35,8 +27,8 @@ import jakarta.persistence.PersistenceContext;
          if (!imageFile.isEmpty()) {
              String imageName = imageFile.getOriginalFilename(); 
              String hashedImageName = generateNewFileName(imageName);
-             Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
-             copyImageFile(imageFile, filePath);
+             //Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
+             //copyImageFile(imageFile, filePath);
              house.setImageName(hashedImageName);
          }
          
@@ -59,8 +51,8 @@ import jakarta.persistence.PersistenceContext;
          if (!imageFile.isEmpty()) {
              String imageName = imageFile.getOriginalFilename(); 
              String hashedImageName = generateNewFileName(imageName);
-             Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
-             copyImageFile(imageFile, filePath);
+             //Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
+             //copyImageFile(imageFile, filePath);
              house.setImageName(hashedImageName);
          }
          
@@ -86,6 +78,7 @@ import jakarta.persistence.PersistenceContext;
      }     
      
      // 画像ファイルを指定したファイルにコピーする
+     /*
      public void copyImageFile(MultipartFile imageFile, Path filePath) {           
          try {
              Files.copy(imageFile.getInputStream(), filePath);
@@ -93,12 +86,5 @@ import jakarta.persistence.PersistenceContext;
              e.printStackTrace();
          }          
      } 
-     
-     // キャッシュをクリア
-         @PersistenceContext
-         private EntityManager entityManager;
-         public void clearCache() {
-             entityManager.clear(); 
-         }
-
+     */
  }
