@@ -10,9 +10,6 @@ import com.example.samuraitravel.form.SignupForm;
 import com.example.samuraitravel.form.UserEditForm;
 import com.example.samuraitravel.repository.RoleRepository;
 import com.example.samuraitravel.repository.UserRepository;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
  
  @Service
 public class UserService {
@@ -82,11 +79,20 @@ public class UserService {
          return !userEditForm.getEmail().equals(currentUser.getEmail());      
      }
      
-     // キャッシュをクリア
-         @PersistenceContext
-         private EntityManager entityManager;
-         public void clearCache() {
-             entityManager.clear(); 
-         }
+     //ユーザーが存在するかをチェックする
+     public boolean doesUserExist(Integer UserId) {
+         return userRepository.existsById(UserId);
+     }
+
+	public String getUserNameById(Integer UserId) {
+		// TODO 自動生成されたメソッド・スタブ
+		//return userRepository.findById(UserId).get().getName().toString();
+		return userRepository.findById(UserId).toString();
+	}
+	
+	public String getUserNameById2(Integer UserId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return userRepository.findById(UserId).get().getName().toString();
+	}
      
 }
