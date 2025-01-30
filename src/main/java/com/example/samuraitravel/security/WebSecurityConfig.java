@@ -22,8 +22,10 @@ public class WebSecurityConfig {
        			//.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/houses").permitAll()  // すべてのユーザーにアクセスを許可するUR
        			//.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/houses", "/houses/{id}").permitAll()  // すべてのユーザーにアクセスを許可するURL
          		.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/houses", "/houses/{id}", "/stripe/webhook").permitAll()  // すべてのユーザーにアクセスを許可するURL
+         		.requestMatchers("/houses/{houseId}/review/{reviewId}/edit","/houses/{houseId}/review/{reviewId}/delete").hasAnyRole("GENERAL", "ADMIN") // ROLE_GENERALまたはROLE_ADMINを持つユーザーにレビューの編集を許可
      			.requestMatchers("/admin/**").hasRole("ADMIN")  // 管理者にのみアクセスを許可するURL
        			.anyRequest().authenticated()                   // 上記以外のURLはログインが必要（会員または管理者のどちらでもOK）
+       			
              )
              .formLogin((form) -> form
                  .loginPage("/login")              // ログインページのURL
@@ -37,8 +39,8 @@ public class WebSecurityConfig {
                  .permitAll()
              //);
             )
-             .csrf().ignoringRequestMatchers("/stripe/webhook");    
-             
+             .csrf().ignoringRequestMatchers("/stripe/webhook");
+            
          return http.build();
      }
      
