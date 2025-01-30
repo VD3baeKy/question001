@@ -13,7 +13,7 @@ RUN mvn -B dependency:go-offline
 
 # アプリケーションのビルド
 COPY src src
-RUN mvn -B package -DskipTests
+RUN mvn -B -X package -DskipTests
 
 # 本番用の軽量なJREベースイメージを使用
 FROM openjdk:17-jdk-slim
