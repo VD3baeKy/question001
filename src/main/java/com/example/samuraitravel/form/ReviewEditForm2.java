@@ -1,13 +1,16 @@
 package com.example.samuraitravel.form;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.Serializable;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
  
  @Data
+ public class ReviewEditForm2 implements Serializable {
+	 private String contentChange;
+	 private String ratingChange;
+ }
+ 
+ /*
  @AllArgsConstructor
 public class ReviewEditForm {
     @NotNull
@@ -21,4 +24,4 @@ public class ReviewEditForm {
         
     private MultipartFile imageFile;
 }
- 
+ */

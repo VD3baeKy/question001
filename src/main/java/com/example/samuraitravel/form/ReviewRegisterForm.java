@@ -13,7 +13,7 @@ public class ReviewRegisterForm {
     private Integer rating;
 
     @NotBlank(message = "レビューを入力してください。")
-    private String review_text;
+    private String reviewText;
         
     private MultipartFile imageFile;
 }
