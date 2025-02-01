@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -115,7 +116,22 @@ public class HouseController {
     ) {
 
         //UserDetailsImpl userDetails = null;
-    	UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	UserDetailsImpl userDetails=null;
+    	Boolean loginwas = false;
+    	
+    	try {
+    		userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                userDetails = (UserDetailsImpl) authentication.getPrincipal();
+                loginwas = true;
+            } else {
+                // 未認証の場合の処理
+            }
+        } catch (ClassCastException e) {
+            // UserDetailsImplへのキャストに失敗した場合の処理
+        }
+    	
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetailsImpl) {
             userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         }
@@ -132,8 +148,6 @@ public class HouseController {
             hasWrittenReview = reviewsRepository.findByHouseIdOrderByCreatedAtDesc(id)
                     .stream()
                     .anyMatch(r -> r.getUserid().equals(userDetailsCopy.getUserId())); // ユーザーのレビューがあるか確認
-            
-            System.out.println("hasWrittenReview= " + hasWrittenReview);
             model.addAttribute("currentUserId", userDetails.getUserId());
         } else {
             System.out.println(" ##### NOT LOGIN #####");
@@ -148,6 +162,9 @@ public class HouseController {
         House house = houseRepository.getReferenceById(id);
 
         List<User> userAll = userRepository.findAll(); // 有効なユーザーのリストを取得
+        model.addAttribute("loginwas", loginwas);
+        System.out.println("loginwas= " + loginwas);
+        System.out.println("hasWrittenReview= " + hasWrittenReview);
         System.out.println("Userall= " + userAll);
         if (!userAll.isEmpty()) {
             System.out.println("Userall.get(0)= " + userAll.get(2).getName());
@@ -155,25 +172,35 @@ public class HouseController {
 
         // Houseに関連するレビューを取得
         List<Review> reviews = reviewsRepository.findByHouseIdOrderByCreatedAtDesc(id);
+        System.out.println("   reviews= " + reviews);
         Map<Integer, Map<String, String>> reviewsWithUserName = new HashMap<>();
-        for (int i = 0; i < reviews.size(); i++) {
-            Review review = reviews.get(i);
-            Map<String, String> reviewDetails = new HashMap<>();
-            reviewDetails.put("content", String.valueOf(review.getReviewText()));
-            reviewDetails.put("rating", String.valueOf(review.getRating()));
-            reviewDetails.put("houseid", String.valueOf(review.getHouseid()));
-            reviewDetails.put("userid", String.valueOf(review.getUserid()));
-            reviewDetails.put("reviewid", String.valueOf(review.getId()));
-
-            String user = userService.getUserNameById(review.getUserid());
-            String isUserExistencee = (user != null) ? userService.getUserNameById2(review.getUserid()) : "退会ユーザー";
-
-            System.out.println("review[isUserExistencee]= " + isUserExistencee);
-            reviewDetails.put("isUserExistencee", isUserExistencee);
-            reviewsWithUserName.put(i, reviewDetails);
+        
+        if(reviews.size()>0) {
+        	model.addAttribute("haveReviews", reviews.size());
+	        for (int i = 0; i < reviews.size(); i++) {
+	            Review review = reviews.get(i);
+	            Map<String, String> reviewDetails = new HashMap<>();
+	            reviewDetails.put("content", String.valueOf(review.getReviewText()));
+	            reviewDetails.put("rating", String.valueOf(review.getRating()));
+	            reviewDetails.put("houseid", String.valueOf(review.getHouseid()));
+	            reviewDetails.put("userid", String.valueOf(review.getUserid()));
+	            reviewDetails.put("reviewid", String.valueOf(review.getId()));
+	
+	            String user = userService.getUserNameById(review.getUserid());
+	            String isUserExistencee = (user != null) ? userService.getUserNameById2(review.getUserid()) : "退会ユーザー";
+	
+	            System.out.println("review[isUserExistencee]= " + isUserExistencee);
+	            reviewDetails.put("isUserExistencee", isUserExistencee);
+	            reviewsWithUserName.put(i, reviewDetails);
+	            System.out.println("   i= " + i);
+	        }
+        }else {
+        	model.addAttribute("haveReviews", 0);
         }
 
         model.addAttribute("reviewsWithUserName", reviewsWithUserName);
+        System.out.println("reviewsWithUserName= " + reviewsWithUserName.toString());
+        
 
         User userLogined = null;
         if (userDetails != null) {
