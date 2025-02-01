@@ -197,23 +197,23 @@
 				</div>
 				
 				<!-- Revueカード追加ココカラ -->
-				<div th:if="${reviews.size()==0}">
-					<p>レビューはありません</p>
-				</div>
-				<div th:if="${reviews.size()>0}">
+				<div>
  					<h3 th:text="'［' + ${house.getName()}+ '］のレビュー　全 ' + ${reviews.size()} +' 件'">
 					</h3>
-					<div th:if="${!hasWrittenReview}">
+					<!-- <div th:if="${!hasWrittenReview}"> -->
+					<div th:if="${loginwas==true}">
 						レビューを投稿する
 					</div>
-					<span th:text="'ログイン中のユーザーのID= ' + ${currentUserId}">
-					</span>
-					<br>
-					<span th:text="'ログイン中のユーザーのレビューがあるか？= ' + ${hasWrittenReview}">
-					</span>
-					<br>
-					<span th:text="'ログイン中のユーザーは有効か？= ' + ${userAll.get(currentUserId).getEnabled()}">		
-					</span>
+					<div sec:authorize="isAnonymous()">
+						<span th:if="${loginwas==true}" th:text="'ログイン中のユーザーのID= ' + ${currentUserId}">
+						</span>
+						<br>
+						<span th:if="${loginwas==true}" th:text="'ログイン中のユーザーのレビューがあるか？= ' + ${hasWrittenReview}">
+						</span>
+						<br>
+						<span th:if="${loginwas==true}" th:text="'ログイン中のユーザーは有効か？= ' + ${userAll.get(currentUserId).getEnabled()}">		
+						</span>
+					</div>
 					<p sec:authorize="isAnonymous()" class="card-text">
 						レビューを投稿するには
 						<a th:href="@{/login}">
@@ -224,7 +224,10 @@
 					<!-- <div class="card-container row justify-content-center align-items-center" th:if="${reviews.size() > 0}"> -->
 					<div class="card-container row justify-content-center align-items-center">
 						<p>レビューデータテスト表示(要素0)
-							<span th:text="${reviewsWithUserName.get(0).toString()}">
+							<span th:if="${haveReviews>0}" th:text="${reviewsWithUserName.get(0).toString()}">
+							</span>
+							<span th:if="${haveReviews<1}">
+								この宿にはレビューがまだありません。
 							</span>
 						</p>
 						
@@ -234,8 +237,12 @@
 							var reviewsWithUserName = /*[[${reviewsWithUserName}]]*/ [];
 							var userDetails = /*[[${userAll}]]*/ [];
 							var houseName = /*[[${houseName}]]*/ ;
-							var currentUserIdData = /*[[${currentUserId}]]*/ ; 
+							var currentUserIdData=0;
+							if(loginWas==true){
+								currentUserIdData = /*[[${currentUserId}]]*/ ; 	
+							}
 							var houseName = /*[[${houseName}]]*/ ;
+							var loginWas = /*[[${loginwas}]]*/ ;
 							
 							var debugging=false;
 							
